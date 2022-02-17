@@ -30,9 +30,9 @@ def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
     vf_coef = trial.suggest_uniform("vf_coef", 0, 1)
     net_arch = trial.suggest_categorical("net_arch", ["small", "medium"])
     # Uncomment for gSDE (continuous actions)
-    # log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
+    log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
     # Uncomment for gSDE (continuous action)
-    # sde_sample_freq = trial.suggest_categorical("sde_sample_freq", [-1, 8, 16, 32, 64, 128, 256])
+    sde_sample_freq = trial.suggest_categorical("sde_sample_freq", [-1, 8, 16, 32, 64, 128, 256])
     # Orthogonal initialization
     ortho_init = False
     # ortho_init = trial.suggest_categorical('ortho_init', [False, True])
@@ -66,9 +66,9 @@ def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
         "gae_lambda": gae_lambda,
         "max_grad_norm": max_grad_norm,
         "vf_coef": vf_coef,
-        # "sde_sample_freq": sde_sample_freq,
+        "sde_sample_freq": sde_sample_freq,
         "policy_kwargs": dict(
-            # log_std_init=log_std_init,
+            log_std_init=log_std_init,
             net_arch=net_arch,
             activation_fn=activation_fn,
             ortho_init=ortho_init,
@@ -232,7 +232,7 @@ def sample_sac_params(trial: optuna.Trial) -> Dict[str, Any]:
     # You can comment that out when not using gSDE
     log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
     # NOTE: Add "verybig" to net_arch when tuning HER
-    net_arch = trial.suggest_categorical("net_arch", ["small", "medium", "big"])
+    net_arch = trial.suggest_categorical("net_arch", ["small", "medium", "big", "large", "verybig"])
     # activation_fn = trial.suggest_categorical('activation_fn', [nn.Tanh, nn.ReLU, nn.ELU, nn.LeakyReLU])
 
     net_arch = {
@@ -240,8 +240,8 @@ def sample_sac_params(trial: optuna.Trial) -> Dict[str, Any]:
         "medium": [256, 256],
         "big": [400, 300],
         # Uncomment for tuning HER
-        # "large": [256, 256, 256],
-        # "verybig": [512, 512, 512],
+        "large": [256, 256, 256],
+        "verybig": [512, 512, 512],
     }[net_arch]
 
     target_entropy = "auto"
