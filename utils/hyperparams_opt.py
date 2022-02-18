@@ -348,13 +348,14 @@ def sample_ddpg_params(trial: optuna.Trial) -> Dict[str, Any]:
     noise_std = trial.suggest_uniform("noise_std", 0, 1)
 
     # NOTE: Add "verybig" to net_arch when tuning HER (see TD3)
-    net_arch = trial.suggest_categorical("net_arch", ["small", "medium", "big"])
+    net_arch = trial.suggest_categorical("net_arch", ["small", "medium", "big", "verybig"])
     # activation_fn = trial.suggest_categorical('activation_fn', [nn.Tanh, nn.ReLU, nn.ELU, nn.LeakyReLU])
 
     net_arch = {
         "small": [64, 64],
         "medium": [256, 256],
         "big": [400, 300],
+        "verybig": [256, 256, 256],
     }[net_arch]
 
     hyperparams = {
