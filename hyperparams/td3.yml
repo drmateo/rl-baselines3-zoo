@@ -167,11 +167,14 @@ Swimmer-v3:
 PandaPush-v1:
   <<: *pybullet-defaults
   policy: 'MultiInputPolicy'
+  replay_buffer_class: HerReplayBuffer
 
 PandaSlide-v1:
   <<: *pybullet-defaults
   policy: 'MultiInputPolicy'
+  replay_buffer_class: HerReplayBuffer
 
 PandaPickAndPlace-v1:
   <<: *pybullet-defaults
   policy: 'MultiInputPolicy'
+  replay_buffer_class: HerReplayBuffer
