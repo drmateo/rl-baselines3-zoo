@@ -98,9 +98,9 @@ def sample_trpo_params(trial: optuna.Trial) -> Dict[str, Any]:
     gae_lambda = trial.suggest_categorical("gae_lambda", [0.8, 0.9, 0.92, 0.95, 0.98, 0.99, 1.0])
     net_arch = trial.suggest_categorical("net_arch", ["small", "medium"])
     # Uncomment for gSDE (continuous actions)
-    # log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
+    log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
     # Uncomment for gSDE (continuous action)
-    # sde_sample_freq = trial.suggest_categorical("sde_sample_freq", [-1, 8, 16, 32, 64, 128, 256])
+    sde_sample_freq = trial.suggest_categorical("sde_sample_freq", [-1, 8, 16, 32, 64, 128, 256])
     # Orthogonal initialization
     ortho_init = False
     # ortho_init = trial.suggest_categorical('ortho_init', [False, True])
@@ -134,9 +134,9 @@ def sample_trpo_params(trial: optuna.Trial) -> Dict[str, Any]:
         "target_kl": target_kl,
         "learning_rate": learning_rate,
         "gae_lambda": gae_lambda,
-        # "sde_sample_freq": sde_sample_freq,
+        "sde_sample_freq": sde_sample_freq,
         "policy_kwargs": dict(
-            # log_std_init=log_std_init,
+            log_std_init=log_std_init,
             net_arch=net_arch,
             activation_fn=activation_fn,
             ortho_init=ortho_init,
