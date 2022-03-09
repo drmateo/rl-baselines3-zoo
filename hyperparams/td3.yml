@@ -162,3 +162,19 @@ Swimmer-v3:
   gamma: 0.9999
   train_freq: 1
   gradient_steps: 1
+
+# === Panda Robot envs
+PandaPush-v1:
+  <<: *pybullet-defaults
+  policy: 'MultiInputPolicy'
+  replay_buffer_class: HerReplayBuffer
+
+PandaSlide-v1:
+  <<: *pybullet-defaults
+  policy: 'MultiInputPolicy'
+  replay_buffer_class: HerReplayBuffer
+
+PandaPickAndPlace-v1:
+  <<: *pybullet-defaults
+  policy: 'MultiInputPolicy'
+  replay_buffer_class: HerReplayBuffer

@@ -215,3 +215,19 @@ InvertedPendulumSwingupBulletEnv-v0:
   gamma: 0.99
   n_epochs: 10
   learning_rate: 2.5e-4
+
+# === Panda Robot envs
+PandaPush-v1:
+  <<: *pybullet-defaults
+  n_envs: 16
+  policy: 'MultiInputPolicy'
+
+PandaSlide-v1:
+  <<: *pybullet-defaults
+  n_envs: 16
+  policy: 'MultiInputPolicy'
+
+PandaPickAndPlace-v1:
+  <<: *pybullet-defaults
+  n_envs: 1
+  policy: 'MultiInputPolicy'
